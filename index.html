@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer>
+        let conn = null;
+        let insc = null;
+        window.onload = ()=>{
+            conn = document.getElementById("connexion");
+            insc = document.getElementById("inscription");
+        };
+        let save = null;
+        let swap = ()=> {
+            save = conn.className;
+            conn.className = insc.className;
+            insc.className = save;
+        }
+    </script>
+</head>
+<body>
+    <div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <!-- PANNEL CONNEXION -->
+    <div id="connexion" class="px-8 py-6 mt-4 text-left bg-white shadow-lg">
+        <h3 class="text-2xl font-bold text-center">Connexion</h3>
+        <form action="/connect" method="POST">
+            <div class="mt-4">
+                <div>
+                    <label class="block" for="nom">Nom<label>
+                        <input type="text" name="nom" placeholder="Nom"
+                        class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600">
+                </div>
+                <div class="mt-4">
+                    <label class="block">Mot de passe<label>
+                        <input type="password" name="password" placeholder="Mot de passe"
+                        class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600">
+                </div>
+                <div class="flex items-baseline justify-between">
+                    <button class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">Connexion</button>
+                    <a href="javascript:swap()" class="text-sm text-blue-600 hover:underline">S'inscrire</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- PANNEL INSCRIPTION -->
+    <div id="inscription" class="px-8 py-6 mt-4 text-left bg-white shadow-lg hidden">
+        <h3 class="text-2xl font-bold text-center">Inscription</h3>
+        <form action="/inscription" method="POST">
+            <div class="mt-4">
+                <div>
+                    <label class="block" for="nom">Nom<label>
+                        <input type="text" name="nom" placeholder="Nom"
+                        class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600">
+                </div>
+                <div class="mt-4">
+                    <label class="block">Mot de passe<label>
+                        <input type="password" name="password" placeholder="Mot de passe"
+                        class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600">
+                </div>
+                <div class="flex items-baseline justify-between">
+                    <button class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">Inscription</button>
+                    <a href="javascript:swap()" class="text-sm text-blue-600 hover:underline">Se connecter</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    </div>
+</body>
+</html>
