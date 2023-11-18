@@ -4,8 +4,11 @@
 Hello there! This is my personal project, a Simple Express Server. It's a small server I built to get hands-on experience with Express.js. It's a simple, yet effective way to learn and understand server-side development.
 
 ## Tech Stack 🛠️
-- **JavaScript**: Powering the server-side logic.
-- **HTML**: For the basic front-end.
+
+- **HTML/Tailwind CSS/JS**: For the basic front-end
+- **Express.js**: Powering the server-side logic
+- **MongoDB** : For data storage
+- **Node.js**: The runtime environment
 
 ## Structure 🗂️
 - `node_modules/`: Necessary Node.js modules.
