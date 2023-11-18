@@ -22,15 +22,16 @@ app.use(express.urlencoded({ extended: true}));
 //SESSION
 const flash = require("express-flash");
 const session = require("express-session");
+app.use(session({
+    secret: fs.readFileSync("./sec.key", "utf-8"),
+    resave: false,
+    saveUninitialized: false
+    })
+);
 const passport = require("passport");
 const sessionInit = require("./sessions.js");
 sessionInit(passport);
 app.use(flash());
-app.use(session({
-    secret: fs.readFileSync('./sec.key'),
-    resave:false,
-    saveUninitialized:false
-}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -39,13 +40,33 @@ const routerCon = require("./router/connexion");
 const routerReg = require("./router/inscription");
 app.use("/connect", routerCon);//routes connexion
 app.use("/inscription", routerReg);//routes inscription
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"));
 
-app.get('/', async (req, res)=>{
+function checkNotAuthenticated(req, res, next){
+    if (req.isAuthenticated())
+        res.redirect("/logged");
+    else next();
+}
+app.get('/', checkNotAuthenticated, async (req, res)=>{
     res.send(await readFile("./index.html", "utf8"));
 });
-app.get('/logged', async (req, res)=>{
+
+function checkAuthenticated(req, res, next){
+    if (req.isAuthenticated())
+        next();
+    else res.redirect("/");
+}
+app.get("/logged", checkAuthenticated, async (req, res)=>{
     res.send(await readFile("./logged.html", "utf8"));
 });
+
+app.delete("/logout", (req, res)=>{
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        res.redirect('/');
+      });
+})
 
 app.get("/*", async(req, res)=>{
     res.status(404).send(await readFile("./404.html", "utf8"));

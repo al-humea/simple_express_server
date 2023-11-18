@@ -5,12 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secu - Connecté</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        var req = new XMLHttpRequest();
+        req.open('GET', document.location, true);
+        req.send(null);
+        req.onload = function() {
+        var headers = req.getAllResponseHeaders().toLowerCase();
+            console.log(headers);
+        };
+    </script>
 </head>
 <body>
     <div class="flex items-center justify-center min-h-screen bg-gray-100">
         <h1 class="mb-2 mt-0 text-5xl font-medium leading-tight text-primary">
             Vous êtes connecté !
-          </h1>
+        </h1>
+        <form action="/logout?_method=DELETE" method="POST">
+            <button type="submit" class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">Déconnexion</button>
+        </form>
     </div>
 </body>
 </html>
